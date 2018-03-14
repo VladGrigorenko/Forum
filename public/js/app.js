@@ -53,6 +53,9 @@ var app = new Vue({
         },
 
         createComment: function () {
+            if(this.body === '')
+                return;
+
             this.$http.post('/comment', {
                 body: this.body,
                 thread_id: this.thread_id

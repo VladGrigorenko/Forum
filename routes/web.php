@@ -10,7 +10,7 @@ Route::get('/profile/{user}', 'UserController@show')->name('profile');
 
 Route::post('profile/photo', 'UserController@updateAvatar')->name('profile_avatar');
 
-Route::post('profile/{user}', 'UserController@changePassword')->name('change_password');
+Route::post('profile/{user}', 'UserController@updatePassword')->name('change_password');
 
 Route::get('user', function (){
     return auth()->user()->id;
@@ -22,9 +22,9 @@ Route::post('/thread/create', 'ThreadController@store');
 
 Route::get('/thread/{thread}', 'ThreadController@index');
 
-Route::delete('thread/delete/{id}', 'ThreadController@deleteThread')->name('delete_thread');
+Route::delete('thread/delete/{id}', 'ThreadController@destroy')->name('delete_thread');
 
-Route::get('getthread/{id}', 'ThreadController@getThread');
+Route::get('getthread/{id}', 'ThreadController@show');
 
 Route::post('thread/edit', 'ThreadController@update');
 #sub

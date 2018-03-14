@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\Http\Requests\ValidateComment;
 use App\Subscriber;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -19,22 +20,19 @@ class CommentController extends Controller
 
         return $comments;
     }
-    public function store(){
 
-        $this->validate(request(), [
-            'body' => 'required|max:255',
-        ]);
+    public function store(ValidateComment $request){
 
         auth()->user()->PublishComment(
-            new Comment(request(['body','thread_id']))
+            new Comment($request->only('body','thread_id'))
         );
 
-        $thread_id = request('thread_id');
-        $subscrabirs = Subscriber::where('thread_id', '=', $thread_id)->get();
+        $thread_id = $request['thread_id'];
+        $subscribers = Subscriber::where('thread_id', '=', $thread_id)->get();
         $threads = Thread::where('id', '=', $thread_id)->get()->first();
 
-        foreach ($subscrabirs as $subscrabir) {
-            $user = User::where('id', '=', $subscrabir->user_id)->get()->first();
+        foreach ($subscribers as $subscriber) {
+            $user = User::where('id', '=', $subscriber->user_id)->get()->first();
             Mail::send('mails.subscribe', ['user' => $user, 'thread' => $threads], function ($m) use ($user) {
                 $m->to($user->email, $user->name)->subject('Hello!');
             });
@@ -45,26 +43,11 @@ class CommentController extends Controller
         auth()->user()->DeleteComment($id);
     }
 
-    public function update(Request $request){
+    public function update(ValidateComment $request){
 
-        if(auth()->check() && auth()->user()->id == $request['user_id']) {
-
-            $comment = Comment::where('id', '=', $request['id'])->first();
-
-            $this->validate(request(), [
-                'body' => 'required|max:255',
-            ]);
-
-            $comment->thread_id = $request['thread_id'];
-            $comment->body = $request['body'];
-            $comment->save();
-
-            return $request->all();
-        }
-        return 'bad';
-
+        $comment = Comment::where('id', '=', $request['id'])->first();
+        $comment->thread_id = $request['thread_id'];
+        $comment->body = $request['body'];
+        $comment->save();
     }
-
-
-
 }

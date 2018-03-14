@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ValidateThread;
 use App\Thread;
 use App\Comment;
-use Illuminate\Http\Request;
 
 class ThreadController extends Controller
 {
@@ -18,36 +18,23 @@ class ThreadController extends Controller
         return view('threads.create');
     }
 
-    public function update(Request $request){
+    public function update(ValidateThread $request){
 
-        if(auth()->check() && auth()->user()->id == $request['user_id']) {
 
-            $thread = Thread::where('id', '=', $request['id'])->first();
+        $thread = Thread::where('id', '=', $request['id'])->first();
 
-            $this->validate(request(), [
-                'body' => 'required',
-            ]);
+        $thread->title = $request['title'];
+        $thread->body = $request['body'];
+        $thread->save();
 
-            $thread->title = $request['title'];
-            $thread->body = $request['body'];
-            $thread->save();
-
-            return $request->all();
-        }
-        return 'bad';
     }
 
-    public function store(){
+    public function store(ValidateThread $request){
 
-        $this->validate(request(), [
-            'title' => 'required|max:255',
-            'body' => 'required'
-        ]);
 
         auth()->user()->publish(
-            new Thread(request(['title','body']))
+            new Thread($request->only('title','body'))
         );
-
         return redirect()->home();
     }
 
@@ -58,14 +45,13 @@ class ThreadController extends Controller
     }
 
 
-    //методы ниже переместить
-    public function getThread($id){
+    public function show($id){
         $thread = Thread::where('id', '=', $id)->first();
 
         return $thread;
     }
 
-    public function deleteThread($id){
+    public function destroy($id){
 
         auth()->user()->DeleteThread($id);
         return redirect()->home();

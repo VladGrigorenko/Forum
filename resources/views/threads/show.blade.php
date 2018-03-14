@@ -85,17 +85,18 @@
                                    class="form-control{{ $errors->has('body') ? ' is-invalid' : '' }}"
                                    name="body" value="{{ old('body') }}" v-model="body" placeholder="Input comments..."
                                    required autofocus>
-
                             @if ($errors->has('body'))
+                                asdasdasd
                                 <span class="invalid-feedback">
-                                <strong>{{ $errors->first('body') }}</strong>
-                            </span>
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
                             @endif
                             <div class="input-group-append" required>
                                 <button type="submit" class="btn btn-outline-secondary"
                                         v-on:click="createComment()">Send
                                 </button>
                             </div>
+
                         </div>
                         <p v-for="item in comments">
                             <template :name="item">
@@ -108,11 +109,6 @@
                         <p>Please login in to see the comments...</p>
                     @endif
 
-                    {{--@foreach($comments as $comment)--}}
-                    {{--<div class="media p-1 mr-5">--}}
-                    {{--@include('threads.comment')--}}
-                    {{--</div>--}}
-                    {{--@endforeach--}}
                 </div>
 
 

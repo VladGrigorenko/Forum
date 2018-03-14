@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Subscriber;
-use Illuminate\Http\Request;
 
 class SubscriberController extends Controller
 {
