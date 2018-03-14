@@ -9,6 +9,8 @@ var app = new Vue({
         body: '',
         thread_id: -1,
         auth_id: -1,
+        edit_thread: false,
+        edit_comment: -1,
     },
 
     created() {
@@ -91,6 +93,8 @@ var app = new Vue({
                 'thread_id': comment.thread_id
             });
 
+            this.edit_comment = -1;
+
             this.getComment();
         },
 
@@ -105,8 +109,24 @@ var app = new Vue({
                 'title': thread.title
             });
 
-
+            this.edit_thread = false;
             this.getComment();
+        },
+
+        setEditThread: function (event) {
+            event.preventDefault();
+            if (this.edit_thread)
+                this.edit_thread = false;
+            else
+                this.edit_thread = true;
+        },
+
+        setEditComment: function (id_comment,event) {
+            event.preventDefault();
+            if(this.edit_comment === -1)
+                this.edit_comment = id_comment;
+            else
+                this.edit_comment = -1;
         },
 
         deleteThread: function () {

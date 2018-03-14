@@ -18,7 +18,7 @@ class ThreadController extends Controller
         return view('threads.create');
     }
 
-    public function edit(Request $request){
+    public function update(Request $request){
 
         if(auth()->check() && auth()->user()->id == $request['user_id']) {
 
@@ -51,18 +51,19 @@ class ThreadController extends Controller
         return redirect()->home();
     }
 
-    public function show(Thread $thread){
+    public function index(Thread $thread){
         $comments = $this->comment->GetAllComment($thread->id);
 
         return view('threads.show', compact(['thread', 'comments']));
     }
 
+
+    //методы ниже переместить
     public function getThread($id){
         $thread = Thread::where('id', '=', $id)->first();
 
         return $thread;
     }
-
 
     public function deleteThread($id){
 

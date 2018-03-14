@@ -14,7 +14,7 @@ class LikeController extends Controller
         );
     }
 
-    public function delete($id){
+    public function destroy($id){
         auth()->user()->DeleteLike($id);
     }
 

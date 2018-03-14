@@ -9,8 +9,11 @@
 
                     @if(auth()->check() && auth()->user()->id == $thread->user_id)
                         {{csrf_field()}}
-                        <a class="text-dark h5" href="" v-on:click="editThread(thread, $event)">
+                        <a class="text-dark h5" href="" v-on:click="setEditThread($event)">
                             <i class="far fa-edit p-1"></i>
+                        </a>
+                        <a v-if="edit_thread" class="text-dark h5" href="" v-on:click="editThread(thread, $event)">
+                            <i class="fas fa-check"></i>
                         </a>
                         <a href="{{route('home')}}" class="text-dark h5" v-on:click="deleteThread()">
                             <i class="fas fa-trash-alt"></i>
@@ -55,8 +58,11 @@
                 <div class="row ml-5 mt-2">
                     <div class="col-11 ml-5" style="word-wrap: break-word">
                         @if(auth()->check() && auth()->user()->id==$thread->user_id)
-                            <textarea id="thread_body" name="thread_body" class="form-control" rows="3" v-model="thread.body" required>
+                            <textarea v-if="edit_thread" id="thread_body" name="thread_body" class="form-control" rows="3" v-model="thread.body" required>
                             </textarea>
+                            <p v-else>
+                                @{{ thread.body }}
+                            </p>
                         @else
                             <?php echo nl2br(htmlspecialchars($thread->body)) ?>
                         @endif

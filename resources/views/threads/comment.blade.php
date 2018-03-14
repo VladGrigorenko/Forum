@@ -10,8 +10,11 @@
 
         <div v-if="item.user_id == {{ auth()->user()->id }}">
             {{csrf_field()}}
-            <a class="text-dark" href="" v-on:click="editComment( item, $event )">
+            <a class="text-dark" href="" v-on:click="setEditComment(item.id, $event)">
                 <i class="far fa-edit p-1"></i>
+            </a>
+            <a v-if="edit_comment == item.id" class="text-dark h5" href="" v-on:click="editComment( item, $event )">
+                <i class="fas fa-check"></i>
             </a>
             <a class="text-dark" href="" v-on:click="deleteComment( item.id , $event )">
                 <i class="fas fa-trash-alt"></i>
@@ -21,9 +24,11 @@
 
     <div class="border-gray small">
         <p v-if="item.user_id == {{ auth()->user()->id }}">
-            <textarea class="form-control" name="body_comment" id="" cols="1" rows="1" v-model="item.body"></textarea>
-            <p v-else>@{{ item.body }}</p>
+            <textarea v-if="edit_comment == item.id" class="form-control" name="body_comment"
+                      id="" cols="1" rows="1" v-model="item.body">
+            </textarea>
         </p>
+        <p v-if="edit_comment != item.id">@{{ item.body }}</p>
     </div>
 
 </div>

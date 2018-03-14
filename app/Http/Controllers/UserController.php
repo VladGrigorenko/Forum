@@ -12,25 +12,12 @@ use Validator;
 class UserController extends Controller
 {
 
-    public function index(User $user)
+    public function show(User $user)
     {
         return view('profile.index', compact('user'));
     }
 
-    public function updateAvatar(Request $request)
-    {
-        $manager = new ImageManager();
-
-        if ($request->hasFile('avatar')) {
-            $avatar = $request->file('avatar');
-            $filename = time() . '.' . $avatar->getClientOriginalExtension();
-            $manager->make($avatar)->resize(300, 300)->save(public_path('/images/' . $filename));
-            $user = auth()->user()->SetAvatar($filename);
-
-        }
-        return back();
-    }
-
+    //Методы ниже убрать
     public function ValidatePassword(array $data)
     {
         $messages = [
@@ -48,6 +35,19 @@ class UserController extends Controller
         return $validator;
     }
 
+    public function updateAvatar(Request $request)
+    {
+        $manager = new ImageManager();
+
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->file('avatar');
+            $filename = time() . '.' . $avatar->getClientOriginalExtension();
+            $manager->make($avatar)->resize(300, 300)->save(public_path('/images/' . $filename));
+            $user = auth()->user()->SetAvatar($filename);
+
+        }
+        return back();
+    }
 
     public function changePassword(Request $request){
 

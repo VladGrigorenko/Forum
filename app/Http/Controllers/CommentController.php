@@ -15,15 +15,11 @@ class CommentController extends Controller
 
     public function index($id)
     {
-        $comments  = Comment::where('thread_id', '=', $id)->orderBy('created_at', 'desc')->get();
-        foreach ($comments as $comment) {
-            $comment->user;
-            $comment->like;
-        }
+        $comments  = Comment::where('thread_id', '=', $id)->orderBy('created_at', 'desc')->with('user','like')->get();
 
         return $comments;
     }
-    public function create(){
+    public function store(){
 
         $this->validate(request(), [
             'body' => 'required|max:255',
@@ -32,11 +28,6 @@ class CommentController extends Controller
         auth()->user()->PublishComment(
             new Comment(request(['body','thread_id']))
         );
-
-        $comments = Comment::where('thread_id', '=', request(['thread_id']))->orderBy('created_at', 'desc')->get();
-        foreach ($comments as $comment) {
-            $comment->user;
-        }
 
         $thread_id = request('thread_id');
         $subscrabirs = Subscriber::where('thread_id', '=', $thread_id)->get();
@@ -50,11 +41,11 @@ class CommentController extends Controller
         }
     }
 
-    public function delete($id){
+    public function destroy($id){
         auth()->user()->DeleteComment($id);
     }
 
-    public function edit(Request $request){
+    public function update(Request $request){
 
         if(auth()->check() && auth()->user()->id == $request['user_id']) {
 

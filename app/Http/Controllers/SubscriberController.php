@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class SubscriberController extends Controller
 {
-    public function create($id){
+    public function store($id){
 
         auth()->user()->Subscribe(
             new Subscriber(array('thread_id' => $id))
@@ -16,7 +16,7 @@ class SubscriberController extends Controller
         return  back();
     }
 
-    public function unsub($id){
+    public function destroy($id){
 
 
         auth()->user()->DeleteSub($id);
