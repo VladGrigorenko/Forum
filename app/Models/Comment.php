@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,6 +9,7 @@ class Comment extends Model
     protected $fillable = [
         'body','thread_id'
     ];
+
     public function like(){
         return $this->hasMany(Like::class);
     }
@@ -21,12 +22,9 @@ class Comment extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function ChangeComment($body){
-
+    public function UpdateComment($thread_id, $body){
+        $this->thread_id = $thread_id;
         $this->body = $body;
-
         $this->save();
     }
-
-
 }

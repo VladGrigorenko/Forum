@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,7 +24,17 @@ class Thread extends Model
         return $this->hasMany(Subscriber::class);
     }
 
-    public function getAll(){
-        return $this->orderBy('created_at','desc')->get();
+    public function UpdateThread($body){
+        $this->body = $body;
+        $this->save();
+    }
+
+    public function GetAll(){
+        return $this->orderBy('created_at','desc')->paginate(10);
+    }
+
+    public function GetAllComments(){
+        $comments = $this->comment()->orderBy('created_at', 'desc')->with('user', 'like')->get();
+        return $comments;
     }
 }

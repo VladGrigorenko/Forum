@@ -3,14 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ValidateThread;
-use App\Thread;
-use App\Comment;
+use App\Models\Thread;
 
 class ThreadController extends Controller
 {
-    public function __construct()
-    {
-    }
 
     public function create()
     {
@@ -19,10 +15,7 @@ class ThreadController extends Controller
 
     public function update(ValidateThread $request, Thread $thread)
     {
-        $thread->title = $request['title'];
-        $thread->body = $request['body'];
-        $thread->save();
-
+        $thread->UpdateThread($request['body']);
     }
 
     public function store(ValidateThread $request)

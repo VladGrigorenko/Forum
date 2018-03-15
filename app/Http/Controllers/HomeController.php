@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Thread;
-use Illuminate\Http\Request;
+use App\Models\Thread;
 
 class HomeController extends Controller
 {
@@ -23,7 +22,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $threads = Thread::orderBy('created_at','desc')->paginate(10);
+        $threads = new Thread();
+        $threads = $threads->GetAll();
         return view('home',compact('threads'));
     }
 }

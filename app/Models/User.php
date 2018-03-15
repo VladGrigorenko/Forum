@@ -1,10 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
+use Intervention\Image\ImageManager;
 
 class User extends Authenticatable
 {
@@ -59,6 +60,8 @@ class User extends Authenticatable
 
     public function PublishComment(Comment $comment)
     {
+        $sub = new Subscriber();
+        $sub->SendEmail($comment->thread_id);
         $this->comment()->save($comment);
     }
 
@@ -74,7 +77,6 @@ class User extends Authenticatable
 
     public function DeleteSub($thread){
         $id = $this->subscriber()->where('thread_id', '=', $thread->id)->first()->id;
-
         $this->subscriber()->where('id', '=', $id)->delete();
     }
 
@@ -84,10 +86,11 @@ class User extends Authenticatable
         $this->save();
     }
 
-    public function SetAvatar($avatar_name){
-        $this->avatar = $avatar_name;
+    public function SetAvatar($avatar){
+        $manager = new ImageManager();
+        $filename = time() . '.' . $avatar->getClientOriginalExtension();
+        $manager->make($avatar)->resize(300, 300)->save(public_path('/images/' . $filename));
+        $this->avatar = $filename;
         $this->save();
     }
-
-
 }

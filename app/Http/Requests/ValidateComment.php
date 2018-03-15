@@ -16,7 +16,6 @@ class ValidateComment extends FormRequest
         return auth()->check();
     }
 
-
     public function withValidator($validator)
     {
         $validator->after(function ($validator){
