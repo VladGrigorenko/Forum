@@ -22,6 +22,7 @@ class ThreadController extends Controller
         $thread->title = $request['title'];
         $thread->body = $request['body'];
         $thread->save();
+
     }
 
     public function store(ValidateThread $request)
@@ -32,9 +33,14 @@ class ThreadController extends Controller
         return redirect()->home();
     }
 
-    public function show(Thread $thread)
+    public function index(Thread $thread)
     {
         return view('threads.show', compact(['thread']));
+    }
+
+    public function show(Thread $thread)
+    {
+        return $thread;
     }
 
     public function destroy(Thread $thread)

@@ -45,7 +45,7 @@ var app = new Vue({
         },
 
         getThread: function () {
-            this.$http.get('/thread/' + this.thread_id).then(response => this.thread = response.data);
+            this.$http.get('/getthread/' + this.thread_id).then(response => this.thread = response.data);
         },
 
         getUser: function () {

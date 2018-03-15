@@ -21,7 +21,9 @@ Route::get('/thread/create', 'ThreadController@create')->name('create');
 
 Route::post('/thread/create', 'ThreadController@store');
 
-Route::get('/thread/{thread}', 'ThreadController@show');
+Route::get('/thread/{thread}', 'ThreadController@index');
+
+Route::get('/getthread/{thread}', 'ThreadController@show');
 
 Route::delete('thread/delete/{thread}', 'ThreadController@destroy')->name('delete_thread');
 
