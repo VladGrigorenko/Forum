@@ -23,4 +23,8 @@ class Thread extends Model
     {
         return $this->hasMany(Subscriber::class);
     }
+
+    public function getAll(){
+        return $this->orderBy('created_at','desc')->get();
+    }
 }

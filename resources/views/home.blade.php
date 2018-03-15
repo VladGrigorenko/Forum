@@ -12,6 +12,7 @@
                     @foreach($threads as $thread)
                         @include('threads.threads')
                     @endforeach
+                    {{$threads->links()}}
                 </div>
             @endif
         </div>

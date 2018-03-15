@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Subscriber;
+use App\Thread;
 
 class SubscriberController extends Controller
 {
@@ -15,10 +16,9 @@ class SubscriberController extends Controller
         return  back();
     }
 
-    public function destroy($id){
+    public function destroy(Thread $thread){
 
-
-        auth()->user()->DeleteSub($id);
+        auth()->user()->DeleteSub($thread);
 
         return back();
     }

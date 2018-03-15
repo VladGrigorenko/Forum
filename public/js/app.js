@@ -45,7 +45,7 @@ var app = new Vue({
         },
 
         getThread: function () {
-            this.$http.get('/getthread/' + this.thread_id).then(response => this.thread = response.data);
+            this.$http.get('/thread/' + this.thread_id).then(response => this.thread = response.data);
         },
 
         getUser: function () {
@@ -89,10 +89,9 @@ var app = new Vue({
         editComment: function (comment, event) {
             event.preventDefault();
 
-            this.$http.post('/comment/edit', {
+            this.$http.post('/comment/edit/' + comment.id, {
                 'body': comment.body,
                 'user_id': comment.user_id,
-                'id': comment.id,
                 'thread_id': comment.thread_id
             });
 
@@ -105,10 +104,9 @@ var app = new Vue({
             event.preventDefault();
 
 
-            this.$http.post('/thread/edit', {
+            this.$http.post('/thread/edit/' + thread.id, {
                 'body': thread.body,
                 'user_id': thread.user_id,
-                'id': thread.id,
                 'title': thread.title
             });
 

@@ -21,11 +21,6 @@ class Comment extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function GetAllComment($id){
-        $comments = Comment::orderBy('created_at','desc')->where('thread_id', '=',$id)->get();
-        return $comments;
-    }
-
     public function ChangeComment($body){
 
         $this->body = $body;

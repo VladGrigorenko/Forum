@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
     <div class="row p-4 mt-5" id="app">
         <div class="col-sm-12">
             <div class="my-1 p-3 bg-white rounded box-shadow">
@@ -117,6 +118,8 @@
 
 
     </div>
-
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@2.5.13/dist/vue.js"></script>
+    <script src="/js/app.js"></script>
 @endsection
 

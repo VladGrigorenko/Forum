@@ -67,31 +67,13 @@ class User extends Authenticatable
         $this->like()->save($like);
     }
 
-    public function DeleteLike($id)
+    public function DeleteLike($comment)
     {
-        $this->like()->where('comment_id', '=', $id)->delete();
+        $this->like()->where('comment_id', '=', $comment->id)->delete();
     }
 
-    public function DeleteComment($id)
-    {
-        $this->DeleteLike($id);
-        $this->comment()->where('id', '=', $id)->delete();
-    }
-
-    public function DeleteThread($id)
-    {
-        $comments = Comment::where('thread_id', '=', $id)->get();
-        foreach ($comments as $comment){
-            $this->DeleteComment($comment->id);
-        }
-        if(count(Subscriber::where('thread_id', '=', $id)->get())){
-            $this->DeleteSub($id);
-        }
-        $this->thread()->where('id', '=', $id)->delete();
-    }
-
-    public function DeleteSub($thread_id){
-        $id = $this->subscriber()->where('thread_id', '=', $thread_id)->get()->first()->id;
+    public function DeleteSub($thread){
+        $id = $this->subscriber()->where('thread_id', '=', $thread->id)->first()->id;
 
         $this->subscriber()->where('id', '=', $id)->delete();
     }

@@ -23,7 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $threads = Thread::orderBy('created_at','desc')->get();
+        $threads = Thread::orderBy('created_at','desc')->paginate(10);
         return view('home',compact('threads'));
     }
 }

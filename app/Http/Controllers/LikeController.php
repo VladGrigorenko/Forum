@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use App\Like;
 
 class LikeController extends Controller
@@ -13,8 +14,9 @@ class LikeController extends Controller
         );
     }
 
-    public function destroy($id){
-        auth()->user()->DeleteLike($id);
+    public function destroy(Comment $comment){
+
+        auth()->user()->DeleteLike($comment);
     }
 
 }

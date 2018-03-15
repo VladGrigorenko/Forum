@@ -39,13 +39,12 @@ class CommentController extends Controller
         }
     }
 
-    public function destroy($id){
-        auth()->user()->DeleteComment($id);
+    public function destroy(Comment $comment){
+        $comment->delete();
     }
 
-    public function update(ValidateComment $request){
+    public function update(ValidateComment $request, Comment $comment){
 
-        $comment = Comment::where('id', '=', $request['id'])->first();
         $comment->thread_id = $request['thread_id'];
         $comment->body = $request['body'];
         $comment->save();
