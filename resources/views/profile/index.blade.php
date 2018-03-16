@@ -12,7 +12,6 @@
                     <div class="row mb-2">
                         <h2 class="col-2"> {{$user->name}}  </h2>
                     </div>
-
                 </div>
                 <p class="mr-1">Change password</p>
                 <form class="col-3 bg-light rounded box-shadow p-1" method="POST"
@@ -50,7 +49,7 @@
 
                     <button type="submit" class="btn btn-outline-secondary mt-1">Change</button>
                     @if($errors->has('message'))
-                            <strong class="text-success">{{$errors->first('message')}}</strong>
+                        <strong class="text-success">{{$errors->first('message')}}</strong>
                     @endif
                 </form>
             </div>
@@ -70,8 +69,6 @@
                     </div>
                 </form>
             </div>
-
-
         </div>
 
         <div class="col-12 bg-white">
@@ -84,10 +81,7 @@
                             <u>
                                 <a href="/thread/{{$thread->id}}" class="text-dark">{{$thread->title }}</a>
                             </u>
-
-
                         </strong>
-
                         <div class="border-gray small">
                             <?php echo nl2br(htmlspecialchars($thread->body)) ?>
                         </div>

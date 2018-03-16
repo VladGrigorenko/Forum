@@ -3,7 +3,6 @@
 @section('content')
     <div class="row p-4">
         <div class="col-sm-12">
-
                 @if (count($threads) == 0)
                         <h1 class="border-bottom p-5" align="center">Threads do not exist :(</h1>
                 @else

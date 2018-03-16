@@ -7,7 +7,6 @@
             <div class="my-1 p-3 bg-white rounded box-shadow">
                 <h2 class="border-bottom border-gray jpb-2 mb">
                     {{ $thread->title }}
-
                     @if(auth()->check() && auth()->user()->id == $thread->user_id)
                         {{csrf_field()}}
                         <a class="text-dark h5" href="" v-on:click="setEditThread($event)">
@@ -20,7 +19,6 @@
                             <i class="fas fa-trash-alt"></i>
                         </a>
                     @endif
-
                 </h2>
 
                 {{--Thread info--}}
@@ -53,13 +51,13 @@
                             @endif
                         @endif
                     </div>
-
                 </div>
 
                 <div class="row ml-5 mt-2">
                     <div class="col-11 ml-5" style="word-wrap: break-word">
                         @if(auth()->check() && auth()->user()->id==$thread->user_id)
-                            <textarea v-if="edit_thread" id="thread_body" name="thread_body" class="form-control" rows="3" v-model="thread.body" required>
+                            <textarea v-if="edit_thread" id="thread_body" name="thread_body" class="form-control"
+                                      rows="3" v-model="thread.body" required>
                             </textarea>
                             <p v-else>
                                 @{{ thread.body }}
@@ -69,10 +67,8 @@
                         @endif
                     </div>
                 </div>
-
             </div>
         </div>
-
 
         {{--Comments--}}
         <div class="col-sm-12">
@@ -97,7 +93,6 @@
                                         v-on:click="createComment()">Send
                                 </button>
                             </div>
-
                         </div>
                         <p v-for="item in comments">
                             <template :name="item">
@@ -109,14 +104,9 @@
                     @else
                         <p>Please login in to see the comments...</p>
                     @endif
-
                 </div>
-
-
             </div>
         </div>
-
-
     </div>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@2.5.13/dist/vue.js"></script>

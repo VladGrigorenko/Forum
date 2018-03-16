@@ -16,7 +16,8 @@
         <div class="navbar-collapse navbar-expand-md offcanvas-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{ route('create')  }}">Create thread <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{{ route('create')  }}">Create thread <span
+                                class="sr-only">(current)</span></a>
                 </li>
             </ul>
             <ul class="navbar-nav">
@@ -24,7 +25,7 @@
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false"> {{ Auth::user()->name }}</a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01">
-                        <a class="dropdown-item"  href="{{route('profile', auth()->user())}}">Profile</a>
+                        <a class="dropdown-item" href="{{route('profile', auth()->user())}}">Profile</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">

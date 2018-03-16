@@ -6,8 +6,6 @@
         <u>
             <a href="#" class="text-dark">@{{ item.user.name }}</a>
         </u>
-
-
         <div v-if="item.user_id == {{ auth()->user()->id }}">
             {{csrf_field()}}
             <a class="text-dark" href="" v-on:click="setEditComment(item.id, $event)">
@@ -30,7 +28,6 @@
         </p>
         <p v-if="edit_comment != item.id">@{{ item.body }}</p>
     </div>
-
 </div>
 
 @{{ countLike(item.like) }}

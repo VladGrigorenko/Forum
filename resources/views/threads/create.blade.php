@@ -21,21 +21,16 @@
                                             <strong>{{ $errors->first('title') }}</strong>
                                         </span>
                                     @endif
-
-
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label for="body" class="col-md-4 col-form-label text-md-right">Body</label>
-
-                                <div class="col-md-6" >
+                                <div class="col-md-6">
                                     <textarea id="body"
                                               class="form-control{{ $errors->has('body') ? ' is-invalid' : '' }}"
-                                              rows="3" name="body" value="{{ old('body') }}" required
-                                    ></textarea>
-
-
+                                              rows="3" name="body" value="{{ old('body') }}" required>
+                                    </textarea>
                                     @if ($errors->has('body'))
                                         <span class="invalid-feedback">
                                         <strong>{{ $errors->first('body') }}</strong>
@@ -43,7 +38,6 @@
                                     @endif
                                 </div>
                             </div>
-
 
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
